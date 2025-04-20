@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation History | Reverse Life Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reverse Life Simulator</h1>
+            <p class="tagline">Previous Simulations</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Create Simulation</a></li>
+                <li><a href="{{ url_for('history') }}" class="active">View History</a></li>
+            </ul>
+        </nav>
+
+        <div class="card">
+            <h2>Simulation History</h2>
+            
+            {% if history %}
+                <div class="history-list">
+                    {% for entry in history %}
+                        <div class="history-item">
+                            <h3>{{ entry.user_data.name }}'s Alternate Life</h3>
+                            
+                            <div class="history-details">
+                                <div class="path-comparison">
+                                    <div class="path">
+                                        <h4>Current Life</h4>
+                                        <p>{{ entry.user_data.current.education }} graduate in {{ entry.user_data.current.city }}</p>
+                                        <p>Working as: {{ entry.user_data.current.job }}</p>
+                                    </div>
+                                    <div class="path">
+                                        <h4>Alternate Life</h4>
+                                        <p>{{ entry.user_data.alternate.education }} graduate in {{ entry.user_data.alternate.city }}</p>
+                                        <p>Working as: {{ entry.user_data.alternate.job }}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="story-preview">
+                                    <button class="btn secondary toggle-story" onclick="toggleStory(this)">Show Story</button>
+                                    <div class="story-content hidden">
+                                        {{ entry.story|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No simulations have been created yet.</p>
+                    <a href="{{ url_for('home') }}" class="btn primary">Create Your First Simulation</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Reverse Life Simulator</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleStory(button) {
+            const storyContent = button.nextElementSibling;
+            if (storyContent.classList.contains('hidden')) {
+                storyContent.classList.remove('hidden');
+                button.textContent = 'Hide Story';
+            } else {
+                storyContent.classList.add('hidden');
+                button.textContent = 'Show Story';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Life Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reverse Life Simulator</h1>
+            <p class="tagline">What If I Chose a Different Path?</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}" class="active">Create Simulation</a></li>
+                <li><a href="{{ url_for('history') }}">View History</a></li>
+            </ul>
+        </nav>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <h2>Your Life Details</h2>
+            <form action="{{ url_for('result') }}" method="post">
+                <div class="form-section">
+                    <h3>About You</h3>
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Your Age:</label>
+                        <input type="number" id="age" name="age" min="18" max="100" required>
+                    </div>
+                </div>
+
+                <div class="form-columns">
+                    <div class="form-section">
+                        <h3>Your Current Life</h3>
+                        <div class="form-group">
+                            <label for="current_city">Current City:</label>
+                            <input type="text" id="current_city" name="current_city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="current_education">Education:</label>
+                            <input type="text" id="current_education" name="current_education" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="current_job">Current Job:</label>
+                            <input type="text" id="current_job" name="current_job" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Your "What If" Life</h3>
+                        <div class="form-group">
+                            <label for="alternate_city">Alternate City:</label>
+                            <input type="text" id="alternate_city" name="alternate_city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="alternate_education">Alternate Education:</label>
+                            <input type="text" id="alternate_education" name="alternate_education" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="alternate_job">Alternate Career:</label>
+                            <input type="text" id="alternate_job" name="alternate_job" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn primary">Generate My Alternate Life</button>
+                </div>
+            </form>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Reverse Life Simulator</p>
+        </footer>
+    </div>
+</body>
+</html>

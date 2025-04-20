@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Alternate Life | Reverse Life Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reverse Life Simulator</h1>
+            <p class="tagline">Your Alternate Life Story</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Create Simulation</a></li>
+                <li><a href="{{ url_for('history') }}">View History</a></li>
+            </ul>
+        </nav>
+
+        <div class="card result-card">
+            <div class="profile-summary">
+                <h2>{{ data.name }}'s Alternate Life</h2>
+                <div class="life-paths">
+                    <div class="path current-path">
+                        <h3>Current Life</h3>
+                        <ul>
+                            <li><strong>Age:</strong> {{ data.age }}</li>
+                            <li><strong>City:</strong> {{ data.current.city }}</li>
+                            <li><strong>Education:</strong> {{ data.current.education }}</li>
+                            <li><strong>Career:</strong> {{ data.current.job }}</li>
+                        </ul>
+                    </div>
+                    <div class="path alternate-path">
+                        <h3>Alternate Life</h3>
+                        <ul>
+                            <li><strong>Age:</strong> {{ data.age }}</li>
+                            <li><strong>City:</strong> {{ data.alternate.city }}</li>
+                            <li><strong>Education:</strong> {{ data.alternate.education }}</li>
+                            <li><strong>Career:</strong> {{ data.alternate.job }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-content">
+                <h3>Your Alternate Life Story</h3>
+                <div class="story">
+                    {{ story|safe }}
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="{{ url_for('home') }}" class="btn">Create New Simulation</a>
+                <button class="btn secondary" onclick="window.print()">Print Story</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Reverse Life Simulator</p>
+        </footer>
+    </div>
+</body>
+</html>
